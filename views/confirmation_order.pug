@@ -1,0 +1,204 @@
+html
+  head
+    title Confirmation Order
+    style(type='text/css', media='print').
+      @page { size: landscape; }
+    style.
+      body{
+        font-family:Arial !important;
+      }
+      .container{
+          height:95%;
+      }
+      .header{
+          width:100%;
+      }
+      .logo{
+          width:25%;
+          max-width:170px;
+          float:left;
+      }
+      .logo img{
+          max-width:150px;
+      }
+      .client{
+          width:75%;
+          float:left;
+
+      }
+      .clearboth{
+          clear:both;
+      }
+      .client-info{
+        font-size:12px !important;
+      }
+      .client-info tr td:first-child{
+          width:150px;
+      }
+      .main{
+          margin-top:10px;
+          width:100%;
+      }
+      .block-title{
+          padding:3px 0px 3px 0px;
+          text-align:center;
+          font-weight:bold;
+          background-color:#CCCCCC;
+      }
+      .small-thanks{
+          padding:5px 0px 3px 0px;
+          text-align:center;
+          font-size:11px;
+      }
+      .detail{
+          margin-top:10px;
+          font-size:12px !important;
+          width:100%;
+      }
+      .detail tr th,.detail tr td{
+          text-align:left;
+          border: 1px solid black;
+          padding:3px;
+      }
+      .align-left{
+          text-align:left;
+      }
+      .align-right{
+          text-align:right;
+      }
+      .bottom-section{
+          margin-top:30px;
+          width:100%;
+      }
+      .term{
+          width:65%;
+          font-size:10px;
+          float:left;
+          padding-right:5%;
+      }
+      .term span{
+          font-size:12px;
+          font-weight:bold;
+      }
+      .approval{
+          width:20%;
+          float:left;
+          font-size:12px;
+          height:100px;
+          margin-right:50px;
+          text-align:center;
+          border-bottom:1px solid #000;
+      }
+      .footer{
+          height:calc(5% - 2px);
+          border-top:1px #000 solid;
+          padding-top:1px;
+          width:100%;
+      }
+      .footer div{
+          width:50%;
+          float:left;
+          font-size:8px;
+          color:#666;
+      }
+  body(onload="window.print();")
+    .container
+        .header
+            .logo
+                img(src='https://experd.com/statics/images/Logo-Experd.png')
+            .client    
+                table.client-info
+                    tr
+                        td C.O No
+                        td :
+                        td CO/EXP/#{data[0].YearYY}/#{data[0].OrderNo}
+                    tr
+                        td Confirmation Date
+                        td :
+                        td #{data[0].OrderDateIndo}
+                    tr
+                        td Company Name
+                        td :
+                        td <b>#{data[0].ClientName}</b>
+                    tr
+                        td Billing Address
+                        td :
+                        td #{data[0].ClientAddress}
+                    tr
+                        td Contact Person
+                        td :
+                        td #{data[0].ClientContact}
+                    tr
+                        td Location
+                        td :
+                        td #{data[0].LocationAddress}
+        .clearboth
+        .main
+            .block-title ORDER CONFIRMATION
+            .small-thanks Thank you for your trust to our services. We are pleased to confirm the details of services as per your request, as follows
+        table.detail(style="border-collapse: collapse;")
+            tr
+                th.align-left(style='width:3%') No
+                th(style='width:20%') Product / Service
+                th(style='width:20%') Implementation Date
+                th(style='width:10%') Qty
+                th(style='width:15%') Price
+                th(style='width:15%') Total
+            - var total = 0
+            -function numberWithCommas(x) {
+                -return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            -}
+            each val, index in data
+                - total = total + val.Price * val.Qty
+                tr
+                    td #{index+1}
+                    td #{val.ProductName}
+                    td #{val.FromDateIndo} s/d #{val.EndDateIndo}
+                    td #{val.Qty}
+                    td Rp. #{numberWithCommas(val.Price)} 
+                    td Rp. #{numberWithCommas(val.Price * val.Qty)}
+
+            tr
+                td(colspan="5", style="text-align:right;") TOTAL
+                td Rp. #{numberWithCommas(total)}
+            //- tr
+            //-     td 2
+            //-     td Paket Simbusiness B
+            //-     td 15 Mar 2019 s/d 01 Apr 2019
+            //-     td 1
+            //-     td Rp 25.000.000
+            //-     td Rp 25.000.000
+        .bottom-section
+            .term
+                span Term & Conditions:
+                ol
+                    li  Additional fees will be charged if the training is held outside of Jakarta
+                        ol(type="a")
+                            li Travel costs for the facilitator team are Rp 550.000/person/day, including the day of training and day of trip to / from the location.
+                            li Accommodation for EXPERD facilitator team :
+                                ul
+                                    li Lodging in hotels that are equivalent to 4-star hotels with deluxe rooms.
+                                    li Breakfast, lunch and dinner while in the city where the training is held (including outside working days).
+                                    li Laundry for 1 set of clothes per day for more than 2 days.
+                            li Transportation for EXPERD facilitator team to/from the location of training (round trip)
+                                ul
+                                    li Cars and drivers (round trip) for implementation in Bogor, Depok, Tangerang, Bekasi, Anyer, and Bandung.
+                                    li Flight tickets (round trip) for training locations that are further away from Bandung and across the island.
+                                    li Excess baggage fees for handling training materials / equipment when using air transportation services.
+                            li Local transportation for the EXPERD facilitator team in the city where the training took place:
+                                ul
+                                    li Shuttle from the airport to the training / accommodation location (round trip).
+                                    li Transfer from the location of accommodation to the location of training if the two locations are different.
+                    li  Changes regarding the location, number of participants and training schedule can be submitted no later than 14 (fourteen) working days prior to the training. Notifications submitted within less than 14 (fourteen) working days prior to the training are not acceptable.
+                    li  If there is a delay and or cancellation of the training conducted within a certain time limit, a fee will be charged. Delays and / or cancellations made within a certain period of time from working days Monday to Friday:
+                        ul
+                            li 8-14 working days prior to the training, payment of the first term cannot be returned
+                            li 5-7 working days before the training, will be charged a fee of 75% (seventy five percent) of the total investment training package
+                            li 1-4 working days before the training, will be charged a fee of 90% (ninety percent) of the total investment training package.
+                            li Less than 1 day or on the day of the training, a fee of 100% (one hundred percent) will be charged from the total investment in the training package
+                            li If there is a cancellation and delay in the execution of work involving a third party, CLIENT COMPANY NAME must pay according to the penalty charged by a third party
+                    li  Other matters not listed here, follow the rules set out in the final proposal
+            .approval Approved by
+    .footer
+        .ho-address EXPERD Head Office<br/> Kemang89 Building, 3rd & 4th Floor,<br/>Jalan Kemang Raya No. 89,
+        .op-address EXPERD Operation Center<br/>PLAZA 3 Pondok Indah, Blok C/2,<br/>Jalan T.B. Simatupang Blok C/2,
